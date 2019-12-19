@@ -18,7 +18,7 @@ function keyDownHandler(e) {
     if (e.key == "Right" || e.key == "ArrowRight") {
         rightPressed = true;
     }
-    else if (e.key == "left" || e.key == "ArrowLeft") {
+    else if (e.key == "Left" || e.key == "ArrowLeft") {
         leftPressed = true;
     }
 }
@@ -27,7 +27,7 @@ function keyUpHandler(e) {
     if (e.key == "Right" || e.key == "ArrowRight") {
         rightPressed = false;
     }
-    else if (e.key == "left" || e.key == "ArrowLeft") {
+    else if (e.key == "Left" || e.key == "ArrowLeft") {
         leftPressed = false;
     }
 }
@@ -39,7 +39,6 @@ function drawBall() {
     ctx.fill();
     ctx.closePath();
 }
-
 function drawPaddle() {
     ctx.beginPath();
     ctx.rect(paddleX, canvas.height - paddleHeight, paddleWidth, paddleHeight);
@@ -52,7 +51,7 @@ function draw() {
     ctx.clearRect(0, 0, canvas.width, canvas.height);
     drawBall();
     drawPaddle();
-    /*Left and right limit*/
+/*Left and right limit*/
     if (x + dx > canvas.width - ballRadius || x + dx < ballRadius) {
         dx = -dx;
     }
@@ -63,22 +62,19 @@ function draw() {
     else if (y + dy > canvas.height - ballRadius) {
         if (x > paddleX && x < paddleX + paddleWidth) {
             dy = -dy;
-            console.log("hit");
         }
         else {
             alert("GAME OVER");
             document.location.reload();
             clearInterval(interval); // Needed for Chrome to end game
-            console.log(intreval);
         }
     }
+
     if (rightPressed && paddleX < canvas.width - paddleWidth) {
         paddleX += 7;
-        console.log(paddleX)
     }
     else if (leftPressed && paddleX > 0) {
         paddleX -= 7;
-        console.log(paddleX)
     }
 
     x += dx;
@@ -86,31 +82,3 @@ function draw() {
 }
 
 var interval = setInterval(draw, 10);
-/*
-var lastCalledTime;
-var fps;
-
-function requestAnimFrame() {
-
-  if(!lastCalledTime) {
-     lastCalledTime = Date.now();
-     fps = 0;
-     return;
-  }
-  delta = (Date.now() - lastCalledTime)/1000;
-  lastCalledTime = Date.now();
-  fps = 1/delta;
-}
-
-function getRandomColor() {
-    var letters = "ABCDEF0123456789";
-    var color = "#";
-    for (var i = 0; i < 6; i++) {
-        color += letters[Math.floor(Math.random() * 16)];
-        console.log(color);
-    }
-    return color;
-}
-
-
-*/
